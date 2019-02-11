@@ -1,29 +1,11 @@
-const redis = require("redis");
 const http = require("http");
 const url = require("url");
 
-const client = redis.createClient();
-
 function index(req, res) {
-    const pathname = url.parse(req.url).pathname;
-    if (pathname == '/')
-    {
-        client.incr('site_counter', (err, count) => {
-            if (err)
-            {
-                res.writeHead(500, { 'Content-Type': 'text/plain' });
-                res.write('error: ' + err);
-                res.end();
-            }
-            else
-            {
-                res.writeHead(200, { 'Content-Type': 'text/plain' });
-                res.write('site visits count: ' + count);
-                res.end();
-            }
-        });
-    }
-
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.write('Hello!');
+    res.end();
+    console.log('accepted request to "/"');
 }
 
 http.createServer((req, res) => {
@@ -37,4 +19,6 @@ http.createServer((req, res) => {
         res.writeHead(200);
         res.end();
     }
-}).listen(3000);
+}).listen(3000, () => {
+    console.log('listening port 3000');
+});

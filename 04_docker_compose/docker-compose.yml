@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  myapp:
+    image: mynodeapp:latest
+    container_name: myapp
+    hostname: myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - myredis
+
+  myredis:
+    image: redis:latest
+    container_name: myredis
+    hostname: myredis
+    volumes:
+      - "$PWD/../data/redis:/data"
